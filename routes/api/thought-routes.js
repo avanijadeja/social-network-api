@@ -4,6 +4,7 @@ const router = require("express").Router();
 const {
   createThought,
   getThoughts,
+  getSingleThought,
 } = require("../../controllers/thought-controller");
 
 // set route /api/thoughts for function createThought
