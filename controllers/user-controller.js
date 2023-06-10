@@ -44,6 +44,27 @@ const userController = {
         res.status(500).json(err);
       });
   },
+
+  // update a user
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      {
+        _id: req.params.userId,
+      },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res.status(404).json({ message: "User does not exist." });
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
 
 // export userController
