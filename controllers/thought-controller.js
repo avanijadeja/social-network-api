@@ -37,6 +37,23 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
+  // Get a single Thought
+  getSingleThought(req, res) {
+    Thought.findOne({ _id: req.params.thoughtId })
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          return res
+            .status(404)
+            .json({ message: "Thought with this Id does not exist." });
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
 
 // export thoghtController
