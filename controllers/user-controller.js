@@ -65,10 +65,11 @@ const userController = {
         res.status(500).json(err);
       });
   },
-};
+
 
 // Delete a single user and thoughts
-deleteUser(req, res){
+deleteUser(req, res)
+{
 User.findOneAndDelete({ _id: req.params.userId })
   .then((dbUserData) => {
     if (!dbUserData) {
@@ -86,5 +87,8 @@ User.findOneAndDelete({ _id: req.params.userId })
     res.status(500).j(err);
   });
 }
+
+};
+
 // export userController
 module.exports = userController;
