@@ -23,7 +23,7 @@ const thoughtSchema = new Schema(
         // set default value is current date
         default:Date.now,
         // using getter method format date
-        get: (timestamp) => moment(timestamp).format('MMM Do,YYYY [at] hh:mm a');
+        get: (timestamp) => moment(timestamp).format('MMM Do,YYYY [at] hh:mm a'),
     },
     // username that creted thought
     username:{

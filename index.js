@@ -1,11 +1,10 @@
 // Dependencies
 //require express
-const express = require('express');
+const express = require("express");
 // require connection.js
-const db = require('./config/connection');
+const db = require("./config/connection");
 // require routes
-const routes = require('./routes');
-
+const routes = require("./routes");
 
 const cwd = process.cwd();
 
@@ -19,8 +18,8 @@ app.use(express.json());
 app.use(routes);
 
 // start the server
-db.once('open', () => {
+db.once("open", () => {
   app.listen(PORT, () => {
-    console.log(`API server for ${activity} running on port ${PORT}!`);
+    console.log(`API server running on port ${PORT}!`);
   });
 });
