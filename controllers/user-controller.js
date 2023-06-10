@@ -29,13 +29,13 @@ const userController = {
 
   // get a single User
   getSingleUser(req, res) {
-    User.findOne({ _id: res.params.userId })
+    User.findOne({ _id: req.params.userId })
       .select("-__v")
       .populate("friends")
       .populate("thoughts")
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: "User dones not exist." });
+          return res.status(404).json({ message: "User does not exist." });
         }
         res.json(dbUserData);
       })
