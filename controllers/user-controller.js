@@ -122,7 +122,8 @@ const userController = {
         console.log(err);
         res.status(500).json(err);
       });
-  },
+  }
+  
 };
 
 // export userController
