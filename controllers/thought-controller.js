@@ -54,6 +54,27 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+
+  // Update a single Thought
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          return res
+            .status(404)
+            .json({ message: "Thought with this ID does not exist." });
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
 
 // export thoghtController
