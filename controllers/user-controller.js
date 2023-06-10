@@ -21,10 +21,28 @@ const userController = {
       .then((dbUserData) => {
         res.json(dbUserData);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
         res.status(500).json(err);
+      });
+  },
+
+  // get a single User
+  getSingleUser(req, res) {
+    User.findOne({ _id: res.params.userId })
+      .select("-__v")
+      .populate("friends")
+      .populate("thoughts")
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res.status(404).json({ message: "User dones not exist." });
+        }
+        res.json(dbUserData);
       })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 };
 
