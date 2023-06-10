@@ -66,28 +66,44 @@ const userController = {
       });
   },
 
+  // Delete a single user and thoughts
+  deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res.status(404).json({ message: "User does not exist." });
+        }
 
-// Delete a single user and thoughts
-deleteUser(req, res)
-{
-User.findOneAndDelete({ _id: req.params.userId })
-  .then((dbUserData) => {
-    if (!dbUserData) {
-      return res.status(404).json({ message: "User does not exist." });
-    }
+        // get userid and delete their thoughts
+        return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
+      })
+      .then(() => {
+        res.json({ message: "User and corrsponding thoughts are deleted" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).j(err);
+      });
+  },
 
-    // get userid and delete their thoughts
-    return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
-  })
-  .then(() => {
-    res.json({ message: "User and corrsponding thoughts are deleted" });
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).j(err);
-  });
-}
-
+  // Add a new friend
+  addFriend(req, res) {
+    User.findByIdAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res.status(404).json({ message: "User does not exist." });
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
 
 // export userController
