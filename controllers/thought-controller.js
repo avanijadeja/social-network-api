@@ -65,7 +65,7 @@ const thoughtController = {
   },
 
   // Update a single Thought using findOneAndUpdate().
-  updateThought(req, res) {
+  updateSingleThought(req, res) {
     Thought.findOneAndUpdate(
       // set id value which we pass in params
       { _id: req.params.thoughtId },
@@ -90,7 +90,7 @@ const thoughtController = {
   },
 
   // Delete a single Thought using findOneAndDelete().
-  deleteThought(req, res) {
+  deleteSingleThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {

@@ -9,7 +9,7 @@ const userController = {
       .then((dbUserData) => {
         res.json(dbUserData);
       })
-         // if error occur catch the error.
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
@@ -23,7 +23,7 @@ const userController = {
       .then((dbUserData) => {
         res.json(dbUserData);
       })
-         // if error occur catch the error.
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
@@ -53,7 +53,7 @@ const userController = {
   },
 
   // update a user using findOneAndUpdate.
-  updateUser(req, res) {
+  updateSingleUser(req, res) {
     User.findOneAndUpdate(
       {
         // set id value which we pass in params
@@ -79,8 +79,8 @@ const userController = {
       });
   },
 
-  // Delete a single user and thoughts using deleteUser().
-  deleteUser(req, res) {
+  // Delete a single user and thoughts using deleteSingleUser().
+  deleteSingleUser(req, res) {
     // delete particular data which userid passed in paramater.
     User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
