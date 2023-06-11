@@ -2,7 +2,7 @@
 const moment = require("moment");
 
 // require mongoose
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const reactionSchema = new Schema(
   {

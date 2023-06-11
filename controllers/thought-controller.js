@@ -110,7 +110,7 @@ const thoughtController = {
 
   // Add reaction in Thought
   addReaction(req, res) {
-    Thought: findOneAndUpdate(
+    Thought.findOneAndUpdate(
       {
         _id: req.params.thoughtId,
       },
