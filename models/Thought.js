@@ -16,13 +16,13 @@ const reactionSchema = new Schema(
       type: String,
       required: true,
       // 280 character maximum
-      maxlenght: 280,
+      maxlength: 280,
     },
     username: {
       type: String,
       required: true,
     },
-    creatdeAt: {
+    createdAt: {
       type: Date,
       // Set default value to the current timestamp
       default: Date.now,
@@ -71,7 +71,6 @@ const thoughtSchema = new Schema(
     id: false,
   }
 );
-
 
 // Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
 thoughtSchema.virtual("reactionCount").get(function () {
