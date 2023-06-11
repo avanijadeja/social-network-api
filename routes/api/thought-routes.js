@@ -8,6 +8,7 @@ const {
   updateThought,
   deleteThought,
   addReaction,
+  removeReaction,
 } = require("../../controllers/thought-controller");
 
 // set route /api/thoughts for function createThought
