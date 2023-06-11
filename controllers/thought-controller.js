@@ -75,6 +75,7 @@ const thoughtController = {
         res.status(500).json(err);
       });
   },
+  
 };
 
 // export thoghtController
