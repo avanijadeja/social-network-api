@@ -1,12 +1,14 @@
+// require models User and Thought models.
 const { Thought, User } = require("../models");
-const { findOneAndUpdate } = require("../models/User");
 
+//  Create thoughtController for all thought function.
 const thoughtController = {
-  // Create a new thought
+  // Create a new thought using create().
   createThought(req, res) {
     Thought.create(req.body)
       .then((dbThoughtData) => {
         return User.findOneAndUpdate(
+          // for particular User add thought using thought_id
           { _id: req.body.userId },
           { $push: { thoughts: dbThoughtData._id } },
           { new: true }
@@ -14,32 +16,37 @@ const thoughtController = {
       })
       .then((dbUserData) => {
         if (!dbUserData) {
+          // if user not found with particular Id error generated.
           return res.status(404).json({
             message: "Thought created, but found no user with that ID",
           });
         }
+        // else thought created.
         res.json({ message: "Thought Created 🎉" });
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // Get all thoughts
+  // Get all thoughts usinf find().
   getThoughts(req, res) {
     Thought.find()
+      // sort all data in descending order
       .sort({ createdAt: -1 })
       .then((dbThoughtData) => {
         res.json(dbThoughtData);
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // Get a single Thought
+  // Get a single Thought using findOne().
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
@@ -50,17 +57,21 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // Update a single Thought
+  // Update a single Thought using findOneAndUpdate().
   updateThought(req, res) {
     Thought.findOneAndUpdate(
+      // set id value which we pass in params
       { _id: req.params.thoughtId },
+      // set changes which pass in req.body
       { $set: req.body },
+      // runValidators apply validation on new data, new:true means new data apply on documentation. you can use new:true or returnOriginal:false.
       { runValidators: true, new: true }
     )
       .then((dbThoughtData) => {
@@ -71,13 +82,14 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // Delete a single Thought
+  // Delete a single Thought using findOneAndDelete().
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
@@ -102,13 +114,14 @@ const thoughtController = {
         }
         res.json({ message: "Deleted Thought!" });
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // Add reaction in Thought
+  // Add reaction in Thought using findOneAndUpdate().
   addReaction(req, res) {
     Thought.findOneAndUpdate(
       {
@@ -136,7 +149,7 @@ const thoughtController = {
       });
   },
 
-  //  Remove Reaction from Thought.
+  //  Remove Reaction from Thought using findOneAndUpdate().
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -151,6 +164,7 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
+      // if error occur catch the error.
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);

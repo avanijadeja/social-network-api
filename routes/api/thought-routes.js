@@ -1,6 +1,7 @@
-// require express router
+// require express router.
 const router = require("express").Router();
 
+// require thought-controller.
 const {
   createThought,
   getThoughts,
@@ -11,7 +12,7 @@ const {
   removeReaction,
 } = require("../../controllers/thought-controller");
 
-// set route /api/thoughts for function createThought
+// set route /api/thoughts for function createThought and getThoughts.
 router.route("/").post(createThought).get(getThoughts);
 
 // set route /api/thoughts/:thoughtId
@@ -27,5 +28,5 @@ router.route("/:thoughtId/reactions").post(addReaction);
 // set route /api/thoughts/:thoughtId/:reactionId
 router.route("/:thoughtId/reactions/:reactionId").delete(removeReaction);
 
-// export router
+// export router.
 module.exports = router;
